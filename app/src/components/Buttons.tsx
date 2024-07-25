@@ -1,10 +1,15 @@
+import { resetCalculator } from "../store/calculatorSlice";
+import { useAppDispatch } from "../store/hooks";
 import DigitButton from "./DigitButton";
 import OperationButton from "./OperationButton";
 
 const Buttons = () => {
+  const dispatch = useAppDispatch();
   return (
     <>
-      <button className="span-two">AC</button>
+      <button className="span-two" onClick={() => dispatch(resetCalculator())}>
+        AC
+      </button>
       <button>DEL</button>
       <OperationButton operation="÷" />
       <DigitButton digit="1" />

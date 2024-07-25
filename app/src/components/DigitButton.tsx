@@ -1,11 +1,15 @@
-import { FC } from "react";
+import { ButtonHTMLAttributes, FC } from "react";
+import { useAppDispatch } from "../store/hooks";
+import { addDigit } from "../store/calculatorSlice";
+import { DecimalType, DigitType } from "../types";
 
-interface DigitButtonPropsI {
-  digit: string;
+interface DigitButtonPropsI extends ButtonHTMLAttributes<HTMLButtonElement> {
+  digit: DigitType | DecimalType;
 }
 
 const DigitButton: FC<DigitButtonPropsI> = ({ digit }) => {
-  return <button>{digit}</button>;
+  const dispatch = useAppDispatch();
+  return <button onClick={() => dispatch(addDigit(digit))}>{digit}</button>;
 };
 
 export default DigitButton;
