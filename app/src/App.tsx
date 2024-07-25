@@ -1,13 +1,11 @@
-import Buttons from "./Buttons";
+import Buttons from "./components/Buttons";
+import Output from "./components/Output";
 import "./App.css";
 
 const App = () => {
   return (
     <section className="calculator-grid">
-      <div className="output">
-        <div className="previous-operand"></div>
-        <div className="current-operand"></div>
-      </div>
+      <Output />
       <Buttons />
     </section>
   );
