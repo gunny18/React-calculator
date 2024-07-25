@@ -49,7 +49,10 @@ const calculatorSlice = createSlice({
       return initialState;
     },
     addDigit: (state, action: PayloadAction<DigitType | DecimalType>) => {
-      if (action.payload === "0" && state.currentOperand === "0") {
+      if (state.overwrite) {
+        state.currentOperand = action.payload;
+        state.overwrite = false;
+      } else if (action.payload === "0" && state.currentOperand === "0") {
         return state;
       } else if (
         action.payload === "." &&
@@ -57,7 +60,7 @@ const calculatorSlice = createSlice({
         state.currentOperand.includes(".")
       )
         return state;
-      if (state.currentOperand === null) {
+      else if (state.currentOperand === null) {
         state.currentOperand = action.payload;
       } else {
         state.currentOperand = `${state.currentOperand}${action.payload}`;
@@ -79,6 +82,20 @@ const calculatorSlice = createSlice({
       state.previousOperand = state.currentOperand;
       state.currentOperand = null;
     },
+    evaluateResult: (state) => {
+      if (state.currentOperand && state.previousOperand && state.operation) {
+        state.currentOperand = evaluate(state);
+        state.previousOperand = null;
+        state.operation = null;
+        state.overwrite = true;
+      }
+    },
+    deleteDigit: (state) => {
+      if (state.currentOperand) {
+        if (state.currentOperand.length === 1) state.currentOperand = null;
+        else state.currentOperand = state.currentOperand.slice(0, -1);
+      }
+    },
   },
 });
 
@@ -88,6 +105,11 @@ export const getCurrentOperand = (state: RootState) =>
   state.calculator.currentOperand;
 export const getOperation = (state: RootState) => state.calculator.operation;
 
-export const { resetCalculator, addDigit, addOperator } =
-  calculatorSlice.actions;
+export const {
+  resetCalculator,
+  addDigit,
+  addOperator,
+  evaluateResult,
+  deleteDigit,
+} = calculatorSlice.actions;
 export default calculatorSlice.reducer;
