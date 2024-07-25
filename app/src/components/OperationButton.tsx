@@ -1,11 +1,19 @@
 import { FC } from "react";
+import { OperationType } from "../types";
+import { useAppDispatch } from "../store/hooks";
+import { addOperator } from "../store/calculatorSlice";
 
 interface OperationButtonPropsI {
-  operation: string;
+  operation: OperationType;
 }
 
 const OperationButton: FC<OperationButtonPropsI> = ({ operation }) => {
-  return <button>{operation}</button>;
+  const dispatch = useAppDispatch();
+  return (
+    <button onClick={() => dispatch(addOperator(operation))}>
+      {operation}
+    </button>
+  );
 };
 
 export default OperationButton;
