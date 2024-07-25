@@ -3,6 +3,17 @@ import "./App.css";
 import { Action, CalculatorState, InitialCalculatorState } from "./types";
 import { useReducer } from "react";
 
+const INTEGER_FORMATTER = new Intl.NumberFormat("en-us", {
+  maximumFractionDigits: 0,
+});
+
+function formatOperand(operand: string | null) {
+  if (operand === null) return;
+  const [integer, decimal] = operand.split(".");
+  if (!decimal) return String(INTEGER_FORMATTER.format(parseInt(integer)));
+  return `${INTEGER_FORMATTER.format(parseInt(integer))}.${decimal}`;
+}
+
 const calculatorReducer = (
   state: CalculatorState,
   action: Action
@@ -130,10 +141,10 @@ const App = () => {
     <section className="calculator-grid">
       <div className="output">
         <div className="previous-operand">
-          {previousOperand}
+          {formatOperand(previousOperand)}
           {operation}
         </div>
-        <div className="current-operand">{currentOperand}</div>
+        <div className="current-operand">{formatOperand(currentOperand)}</div>
       </div>
       <Buttons dispatch={dispatch} />
     </section>
