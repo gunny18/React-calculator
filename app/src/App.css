@@ -3,17 +3,34 @@ body {
 }
 
 .calculator-grid {
+  margin-top: 5rem;
   display: grid;
   place-content: center;
   grid-template-columns: repeat(4, 7rem);
-  grid-template-rows: 10rem repeat(5, 6rem);
+  grid-template-rows: minmax(10rem, auto) repeat(5, 6rem);
   gap: 0.1rem;
 }
 
 .output {
   background-color: rgba(0, 0, 0, 0.75);
-  /* grid-column: 1/-1; */
   grid-column: span 4;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+
+.previous-operand {
+  color: white;
+  font-size: 2rem;
+}
+
+.current-operand {
+  color: white;
+  font-size: 3rem;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 .span-two {
