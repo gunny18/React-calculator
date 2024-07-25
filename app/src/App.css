@@ -8,9 +8,21 @@ body {
   place-content: center;
   grid-template-columns: repeat(4, 7rem);
   grid-template-rows: minmax(10rem, auto) repeat(5, 6rem);
-  gap: 0.1rem;
+  /* gap: 0.1rem; */
 }
 
+.calculator-grid > button {
+  cursor: pointer;
+  font-size: 2rem;
+  border: 1px solid white;
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.calculator-grid > button:hover,
+.calculator-grid > button:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+}
 .output {
   background-color: rgba(0, 0, 0, 0.75);
   grid-column: span 4;
